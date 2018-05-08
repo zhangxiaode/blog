@@ -5,7 +5,7 @@ import './style/reset.less';
 import './style/main.less';
 
 import registerServiceWorker from './registerServiceWorker';
-import App from './view/App';
+import App from './view/app/index';
 
 ReactDOM.render(<App />, document.getElementById('app'));
 registerServiceWorker();
