@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import './app.less';
-import Header from '../header/index'
-import Menu from '../menu/index'
-import Main from '../main/index'
+import Header from '../../components/header/index'
+import Menu from '../../components/menu/index'
+import Main from '../../components/main/index'
 
 class App extends Component {
   render() {
