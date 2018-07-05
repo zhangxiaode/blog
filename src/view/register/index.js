@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './register.less';
 
-class App extends Component {
+class Register extends Component {
   render() {
     return (
       <div className="register">
@@ -11,4 +11,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Register;
