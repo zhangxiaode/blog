@@ -1,8 +1,8 @@
 import React from 'react';
 import App from '../view/app/index';
 import Login from '../view/login/index.jsx';
-import Register from '../view/register/index';
-import SetPwd from '../view/setPwd/index';
+import Register from '../view/register/index.jsx';
+import SetPwd from '../view/setPwd/index.jsx';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 class Home extends React.Component {
     updateHandle() {

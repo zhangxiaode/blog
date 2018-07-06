@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { browserHistory as Router } from 'react-router-dom'
 import './login.less';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 const FormItem = Form.Item;
