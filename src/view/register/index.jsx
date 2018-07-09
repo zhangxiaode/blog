@@ -20,7 +20,6 @@ class RegistrationForm extends Component {
   };
 
   next = (e) => {
-    console.log(this.state.regForm);
     e.preventDefault();
     this.props.form.validateFieldsAndScroll((err, values) => {
       if (!err) {
@@ -33,7 +32,6 @@ class RegistrationForm extends Component {
   }
 
   prev = (e) => {
-    console.log(this.state.regForm);
     e.preventDefault();
     this.setState({ step: this.state.step - 1 });
   }
@@ -62,7 +60,9 @@ class RegistrationForm extends Component {
 
   compareToFirstPassword = (rule, value, callback) => {
     const form = this.props.form;
-    if (value && value !== form.getFieldValue('password')) {
+    if(value && !/^[a-zA-Z0-9]{5,17}$/.test(value)){
+      callback('密码格式错误!');
+    } else if (value && value !== form.getFieldValue('password')) {
       callback('两次输入密码不一致!');
     } else {
       callback();
@@ -81,7 +81,6 @@ class RegistrationForm extends Component {
     const data=this.state.regForm;
     data[event.target.id] = event.target.value;
     this.setState({regForm:data});
-    console.log(this.state.regForm);
   }
 
   render() {
@@ -153,7 +152,7 @@ class RegistrationForm extends Component {
           <Row gutter={8}>
             <Col span={12}>
               {getFieldDecorator('captcha', {
-                rules: [{ required: true, message: 'Please input the captcha you got!' }],
+                rules: [{ required: true, message: '验证码不能为空!' }],
               })(
                 <Input onChange={this.changeInput} placeholder="请输入验证码" />
               )}
@@ -206,8 +205,6 @@ class RegistrationForm extends Component {
           {getFieldDecorator('confirm', {
             rules: [{
               required: true, message: '密码不能为空!',
-            }, {
-              pattern: /^[a-zA-Z0-9]{5,17}$/, message: '密码格式错误',
             }, {
               validator: this.compareToFirstPassword,
             }],

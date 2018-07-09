@@ -39,7 +39,9 @@ class Login extends Component {
               </FormItem>
               <FormItem>
                 {getFieldDecorator('password', {
-                  rules: [{ required: true, message: '请输入密码!' }],
+                  rules: [{ required: true, message: '请输入密码!' }, {
+                    pattern: /^[a-zA-Z0-9]{5,17}$/, message: '密码为6-18位字母、数字或下划线',
+                  }],
                 })(
                   <Input prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="请输入密码" />
                 )}

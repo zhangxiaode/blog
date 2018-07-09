@@ -1,7 +1,6 @@
 /**
  * react入口文件
  */
-import React from 'react';
 import ReactDOM from 'react-dom';
 
 //antd引入
@@ -17,5 +16,5 @@ import registerServiceWorker from './registerServiceWorker';
 //路由引入
 import Routes from './router/index';
 
-ReactDOM.render(<Routes />, document.getElementById("app"))
+ReactDOM.render(Routes, document.getElementById("app"))
 registerServiceWorker();

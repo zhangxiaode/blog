@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import './app.less';
-import Header from '../../components/header/index'
-import Menu from '../../components/menu/index'
-import Main from '../../components/main/index'
+import Header from '../components/header/index.jsx';
+import Menu from '../components/menu/index.jsx';
+import Main from '../components/main/index.jsx';
 
-class App extends Component {
+class Layout extends Component {
   render() {
     return (
       <div className="app">
@@ -18,4 +17,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Layout;
