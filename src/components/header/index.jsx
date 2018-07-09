@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './header.less';
 
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { Avatar, Input } from 'antd';
 const Search = Input.Search;
@@ -11,8 +11,36 @@ class Header extends Component {
   //   super(props);
   //   console.log(this);
   // }
+  state = {
+    navList: [
+      {
+        path:'/page/index',
+        name: '首页'
+      },
+      {
+        path:'/page/topic',
+        name: '话题'
+      },
+      {
+        path:'/page/textChat',
+        name: '聊天社区'
+      },
+      {
+        path:'/page/videoChat',
+        name: '视频社区'
+      },
+      {
+        path:'/page/collections',
+        name: '我的收藏'
+      },
+      {
+        path:'/page/setting',
+        name: '设置'
+      }
+    ]
+  }
   handleSearch = () => {
-
+    
   }
   render() {
     return (
@@ -28,12 +56,11 @@ class Header extends Component {
           </div>
         </div>
         <div className="nav">
-          <Link to="/page/index">首页</Link>
-          <Link to="/page/topic">话题</Link>
-          <Link to="/page/textChat">聊天社区</Link>
-          <Link to="/page/videoChat">视频社区</Link>
-          <Link to="/page/collections">我的收藏</Link>
-          <Link to="/page/setting">设置</Link>
+          {
+            this.state.navList.map((item,index) => {
+              return <NavLink activeClassName="actived" key={index} to={item.path}>{item.name}</NavLink>
+            })
+          }
         </div>
         <div className="userInfo">
           <Avatar icon="user" />
