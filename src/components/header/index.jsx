@@ -3,39 +3,41 @@ import './header.less';
 
 import { NavLink } from 'react-router-dom'
 
-import { Avatar, Input } from 'antd';
+import { Avatar, Input, Icon } from 'antd';
 const Search = Input.Search;
 
 class Header extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   console.log(this);
-  // }
   state = {
     navList: [
       {
         path:'/page/index',
-        name: '首页'
+        name: '首页',
+        icon: 'home'
       },
       {
         path:'/page/topic',
-        name: '话题'
+        name: '话题',
+        icon: 'eye-o'
       },
       {
         path:'/page/textChat',
-        name: '聊天社区'
+        name: '聊天社区',
+        icon: 'message'
       },
       {
         path:'/page/videoChat',
-        name: '视频社区'
+        name: '视频社区',
+        icon: 'video-camera'
       },
       {
         path:'/page/collections',
-        name: '我的收藏'
+        name: '我的收藏',
+        icon: 'heart-o'
       },
       {
         path:'/page/setting',
-        name: '设置'
+        name: '设置',
+        icon: 'setting'
       }
     ]
   }
@@ -58,7 +60,9 @@ class Header extends Component {
         <div className="nav">
           {
             this.state.navList.map((item,index) => {
-              return <NavLink activeClassName="actived" key={index} to={item.path}>{item.name}</NavLink>
+              return <NavLink activeClassName="actived" key={index} to={item.path}>
+              <Icon type={item.icon} />{item.name}
+              </NavLink>
             })
           }
         </div>
