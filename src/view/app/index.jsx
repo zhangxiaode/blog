@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import './app.less';
 import Header from '../../components/header/index.jsx'
 import Homepage from '../index/index.jsx';
@@ -10,6 +10,13 @@ import Collections from '../collections/index.jsx';
 import Setting from '../setting/index.jsx';
 
 class App extends Component {
+  constructor(props){
+      super()
+      console.log(456,props)
+  }
+  componentDidMount(){
+    console.log(789,this.props)
+  }
   state = {
     routes: [
       {
@@ -43,11 +50,14 @@ class App extends Component {
       <div className="app">
         <Header />
         <div className="wrap">
-          {
-            this.state.routes.map((item,index) => {
-              return <Route path={item.path} key={index} component={item.component} />
-            })
-          }
+          <Switch>
+            {
+              this.state.routes.map((item,index) => {
+                return <Route path={item.path} key={index} component={item.component} />
+              })
+            }
+            <Redirect from='/page' to='/page/index'/>
+          </Switch>
         </div>
       </div>
     );
