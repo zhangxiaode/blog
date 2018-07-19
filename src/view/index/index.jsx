@@ -48,7 +48,7 @@ class App extends Component {
         icon: 'team'
       },
       {
-        path:'/page/index/muFocus',
+        path:'/page/index/myFocus',
         name: '我的关注',
         icon: 'user-add'
       },
@@ -59,10 +59,6 @@ class App extends Component {
       }
     ],
     routes: [
-      {
-        path: '/page/index/homepage',
-        component: Homepage
-      },
       {
         path: '/page/index/message',
         component: Message
@@ -88,14 +84,32 @@ class App extends Component {
         component: Community
       },
       {
-        path: '/page/index/muFocus',
+        path: '/page/index/myFocus',
         component: MyFocus
       },
       {
         path: '/page/index/focusMe',
         component: FocusMe
+      },
+      {
+        path: '/page/index/homepage',
+        component: Homepage
       }
-    ]
+    ],
+    index: -1
+  }
+  componentWillMount() {
+    this.state.routes.forEach((item,index) => {
+      if(item.path === this.props.location.pathname){
+        this.setState({index})
+      }
+    })
+    // if(this.props.location.pathname === '/page/index/homepage'){
+    //   this.setState({index: -1})
+    // }
+  }
+  switchPage(index) {
+    this.setState({index})
   }
   render() {
     return (
@@ -104,7 +118,7 @@ class App extends Component {
           <div className="categoryList">
             {
               this.state.categoryList.map((item,index) => {
-                return <Link key={index} to={item.path}>
+                return <Link key={index} onClick={()=>this.switchPage(index)} className={this.state.index === index ? 'actived' : ''} to={item.path}>
                   <Icon type={item.icon} />
                   <span>{item.name}</span>
                 </Link>
@@ -114,7 +128,7 @@ class App extends Component {
           <div className="card">
             {
               this.state.card.map((item,index) => {
-                return <Link key={index} to={item.path}>
+                return <Link key={index} onClick={()=>this.switchPage(this.state.categoryList.length + index)} className={this.state.index === this.state.categoryList.length + index ? 'actived' : ''} to={item.path}>
                   <Icon type={item.icon} />
                   <span>{item.name}</span>
                 </Link>
@@ -122,15 +136,17 @@ class App extends Component {
             }
           </div>
         </div>
-        <div className="content">
-          <Switch>
-            {
-              this.state.routes.map((item,index) => {
-                return <Route path={item.path} key={index} component={item.component} />
-              })
-            }
-            <Redirect from='/page/index' to='/page/index/homepage'/>
-          </Switch>
+        <div className="main">
+          <div className="content">
+            <Switch>
+              {
+                this.state.routes.map((item,index) => {
+                  return <Route path={item.path} key={index} component={item.component} />
+                })
+              }
+              <Redirect from='/page/index' to='/page/index/homepage'/>
+            </Switch>
+          </div>
         </div>
       </div>
     );
