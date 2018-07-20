@@ -6,18 +6,17 @@ import Register from '../view/register/index.jsx'
 import SetPwd from '../view/setPwd/index.jsx'
 import Layout from '../layout/layout.jsx'
 
-import { Provider } from 'react-redux'
+import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
-import PropTypes from 'prop-types'
 import rootReducer from '../store/reducer'
-// import mapStateToProps from '../store/state'
-// import mapDispatchToProps from '../store/despatch'
+import mapStateToProps from '../store/state'
+import mapDispatchToProps from '../store/despatch'
 const store = createStore(rootReducer)
 
 class BrowserRoutes extends Component{
     constructor(props){
-        super()
-        console.log(123,props)
+        super(props)
+        console.log(123,this)
     }
     state = {
         routes:[
@@ -58,13 +57,11 @@ class BrowserRoutes extends Component{
         );
     }
 }
-// BrowserRoutes = connect(mapStateToProps, mapDispatchToProps)(BrowserRoutes)
-const Routes = ({ store }) => (
+BrowserRoutes = connect(mapStateToProps, mapDispatchToProps)(BrowserRoutes)
+console.log(111,store)
+export default 
+(
     <Provider store={store}>
         <BrowserRoutes />
     </Provider>
 )
-Routes.propTypes = {
-    store: PropTypes.object.isRequired
-}
-export default <Routes store={store} />

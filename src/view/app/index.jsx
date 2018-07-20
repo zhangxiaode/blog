@@ -11,11 +11,8 @@ import Setting from '../setting/index.jsx';
 
 class App extends Component {
   constructor(props){
-      super()
-      console.log(456,props)
-  }
-  componentDidMount(){
-    console.log(789,this.props)
+      super(props)
+      console.log(456,this)
   }
   state = {
     routes: [
