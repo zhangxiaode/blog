@@ -10,10 +10,6 @@ import Collections from '../collections/index.jsx';
 import Setting from '../setting/index.jsx';
 
 class App extends Component {
-  constructor(props){
-      super(props)
-      console.log(456,this)
-  }
   state = {
     routes: [
       {
@@ -60,5 +56,4 @@ class App extends Component {
     );
   }
 }
-
 export default App;

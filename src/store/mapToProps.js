@@ -1,3 +1,7 @@
+//映射Redux state到组件的属性
+function mapStateToProps(state) {
+    return { text: state.text }
+}
 //action
 const changeTextAction = {
     type:'CHANGE_TEXT'
@@ -13,4 +17,4 @@ function mapDispatchToProps(dispatch){
         onChangeText:()=>dispatch(changeTextAction)
     }
 }
-export default mapDispatchToProps
+export {mapStateToProps, mapDispatchToProps}

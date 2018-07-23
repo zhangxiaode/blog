@@ -71,5 +71,5 @@ class Login extends Component {
     );
   }
 }
-const WrappedNormalLoginForm = Form.create()(Login);
-export default WrappedNormalLoginForm;
+Login = Form.create()(Login);
+export default Login;

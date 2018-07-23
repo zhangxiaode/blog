@@ -9,15 +9,10 @@ import Layout from '../layout/layout.jsx'
 import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
 import rootReducer from '../store/reducer'
-import mapStateToProps from '../store/state'
-import mapDispatchToProps from '../store/despatch'
+import {mapStateToProps, mapDispatchToProps} from '../store/mapToProps'
 const store = createStore(rootReducer)
 
 class BrowserRoutes extends Component{
-    constructor(props){
-        super(props)
-        console.log(123,this)
-    }
     state = {
         routes:[
             {
@@ -48,7 +43,7 @@ class BrowserRoutes extends Component{
                 <Switch>
                     {
                         this.state.routes.map((item,index) => {
-                        return <Route path={item.path} key={index} component={item.component} />
+                            return <Route path={item.path} key={index} component={item.component} />
                         })
                     }
                     <Redirect exact from='/' to='/login'/>
@@ -58,7 +53,6 @@ class BrowserRoutes extends Component{
     }
 }
 BrowserRoutes = connect(mapStateToProps, mapDispatchToProps)(BrowserRoutes)
-console.log(111,store)
 export default 
 (
     <Provider store={store}>

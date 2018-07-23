@@ -1,13 +1,17 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 
-class App extends Component {
+import {mapStateToProps, mapDispatchToProps} from '../../store/mapToProps'
+
+class Topic extends Component {
   render() {
     return (
       <div className="page">
-        this is topic.
+        {this.props.text}
       </div>
     );
   }
 }
+Topic = connect(mapStateToProps, mapDispatchToProps)(Topic)
 
-export default App;
+export default Topic;
