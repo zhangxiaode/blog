@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Route, Redirect, Switch } from 'react-router-dom';
 import { Icon } from 'antd';
+import { connect } from 'react-redux'
+
+import {mapStateToProps, mapDispatchToProps} from '../../store/mapToProps'
 import './index.less';
 
 import Homepage from '../homepage/index.jsx';
@@ -12,7 +15,13 @@ import Artical from '../artical/index.jsx';
 import Community from '../community/index.jsx';
 import MyFocus from '../myFocus/index.jsx';
 import FocusMe from '../focusMe/index.jsx';
-class App extends Component {
+class Index extends Component {
+  componentDidMount(){
+    this.props.changeMenuIndex(1)
+    setTimeout(()=>{
+      console.log(this.props)
+    },2000)
+  }
   state = {
     categoryList: [
       {
@@ -96,7 +105,7 @@ class App extends Component {
         component: Homepage
       }
     ],
-    index: -1
+    index: this.props.menuIndex
   }
   componentWillMount() {
     this.state.routes.forEach((item,index) => {
@@ -104,9 +113,6 @@ class App extends Component {
         this.setState({index})
       }
     })
-    // if(this.props.location.pathname === '/page/index/homepage'){
-    //   this.setState({index: -1})
-    // }
   }
   switchPage(index) {
     this.setState({index})
@@ -152,5 +158,6 @@ class App extends Component {
     );
   }
 }
+Index = connect(mapStateToProps, mapDispatchToProps)(Index)
 
-export default App;
+export default Index;

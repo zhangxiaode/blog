@@ -1,12 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
-
-import {mapStateToProps, mapDispatchToProps} from '../../store/mapToProps'
 
 class Homepage extends Component {
-  componentDidMount(){
-    this.props.onChangeText()
-  }
   render() {
     return (
       <div className="page">
@@ -15,6 +9,5 @@ class Homepage extends Component {
     );
   }
 }
-Homepage = connect(mapStateToProps, mapDispatchToProps)(Homepage)
 
 export default Homepage;

@@ -1,16 +1,12 @@
 const initialState = {
-    text: 'Hello'
+    menuIndex: -1
 }
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'CHANGE_TEXT':
+        case 'CHANGE_MENU_INDEX':
             return Object.assign({}, state, {
-                text: state.text==='Hello' ? 'world':'Hello'
+                menuIndex: action.text
             })
-        case 'BUTTON_CLICK':
-            return {
-                text: 'Hello world'
-            }
         default:
             return state;
     }
