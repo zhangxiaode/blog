@@ -6,22 +6,16 @@ import { connect } from 'react-redux'
 import {mapStateToProps, mapDispatchToProps} from '../../store/mapToProps'
 import './index.less';
 
-import Homepage from '../homepage/index.jsx';
-import Message from '../message/index.jsx';
-import Write from '../write/index.jsx';
-import Leave from '../leave/index.jsx';
-import Private from '../private/index.jsx';
-import Artical from '../artical/index.jsx';
-import Community from '../community/index.jsx';
-import MyFocus from '../myFocus/index.jsx';
-import FocusMe from '../focusMe/index.jsx';
+import Homepage from './homepage/index.jsx';
+import Message from './message/index.jsx';
+import Write from './write/index.jsx';
+import Leave from './leave/index.jsx';
+import Private from './private/index.jsx';
+import Artical from './artical/index.jsx';
+import Community from './community/index.jsx';
+import MyFocus from './myFocus/index.jsx';
+import FocusMe from './focusMe/index.jsx';
 class Index extends Component {
-  componentDidMount(){
-    this.props.changeMenuIndex(1)
-    setTimeout(()=>{
-      console.log(this.props)
-    },2000)
-  }
   state = {
     categoryList: [
       {
@@ -105,26 +99,25 @@ class Index extends Component {
         component: Homepage
       }
     ],
-    index: this.props.menuIndex
   }
-  componentWillMount() {
+  componentDidMount() {
     this.state.routes.forEach((item,index) => {
       if(item.path === this.props.location.pathname){
-        this.setState({index})
+        this.props.changeMenuIndex(index)
       }
     })
   }
   switchPage(index) {
-    this.setState({index})
+    this.props.changeMenuIndex(index)
   }
   render() {
     return (
-      <div className="homepage">
+      <div className="home">
         <div className="sideBar">
           <div className="categoryList">
             {
               this.state.categoryList.map((item,index) => {
-                return <Link key={index} onClick={()=>this.switchPage(index)} className={this.state.index === index ? 'actived' : ''} to={item.path}>
+                return <Link key={index} onClick={()=>this.switchPage(index)} className={this.props.menuIndex === index ? 'actived' : ''} to={item.path}>
                   <Icon type={item.icon} />
                   <span>{item.name}</span>
                 </Link>
@@ -134,7 +127,7 @@ class Index extends Component {
           <div className="card">
             {
               this.state.card.map((item,index) => {
-                return <Link key={index} onClick={()=>this.switchPage(this.state.categoryList.length + index)} className={this.state.index === this.state.categoryList.length + index ? 'actived' : ''} to={item.path}>
+                return <Link key={index} onClick={()=>this.switchPage(this.state.categoryList.length + index)} className={this.props.menuIndex === this.state.categoryList.length + index ? 'actived' : ''} to={item.path}>
                   <Icon type={item.icon} />
                   <span>{item.name}</span>
                 </Link>

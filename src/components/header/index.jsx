@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './header.less';
+import './index.less';
 
 import { NavLink } from 'react-router-dom'
 
@@ -41,8 +41,11 @@ class Header extends Component {
       }
     ]
   }
-  handleSearch = () => {
-    
+  handleSearch() {
+
+  }
+  switchPage = () => {
+    this.props.changeMenuIndex(-1)
   }
   render() {
     return (
@@ -60,8 +63,8 @@ class Header extends Component {
         <div className="nav">
           {
             this.state.navList.map((item,index) => {
-              return <NavLink activeClassName="actived" key={index} to={item.path}>
-              <Icon type={item.icon} />{item.name}
+              return <NavLink activeClassName="actived" key={index} onClick={this.switchPage} to={item.path}>
+                <Icon type={item.icon} />{item.name}
               </NavLink>
             })
           }
@@ -74,5 +77,4 @@ class Header extends Component {
     );
   }
 }
-
 export default Header;

@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-
-class Homepage extends Component {
+import './index.less'
+class App extends Component {
   render() {
     return (
       <div className="page">
-        this is homepage
+        this is message.
       </div>
     );
   }
 }
 
-export default Homepage;
+export default App;

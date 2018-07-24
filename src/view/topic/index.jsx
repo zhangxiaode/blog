@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './index.less'
 class Topic extends Component {
   render() {
     return (

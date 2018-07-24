@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './register.less';
+import './index.less';
 import { Form, Input, Select, Row, Col, Checkbox, Button, Steps, message } from 'antd';
 const FormItem = Form.Item;
 const Option = Select.Option;

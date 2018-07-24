@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom';
-import './app.less';
+import { connect } from 'react-redux'
+import {mapStateToProps, mapDispatchToProps} from '../../store/mapToProps'
+import './index.less';
 import Header from '../../components/header/index.jsx'
 import Homepage from '../index/index.jsx';
 import Topic from '../topic/index.jsx';
@@ -41,7 +43,7 @@ class App extends Component {
   render() {
     return (
       <div className="app">
-        <Header />
+        <Header changeMenuIndex={this.props.changeMenuIndex} />
         <div className="wrap">
           <Switch>
             {
@@ -56,4 +58,5 @@ class App extends Component {
     );
   }
 }
+App = connect(mapStateToProps, mapDispatchToProps)(App)
 export default App;

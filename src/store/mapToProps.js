@@ -1,6 +1,8 @@
 //映射Redux state到组件的属性
 function mapStateToProps(state) {
-    return { menuIndex: state.menuIndex }
+    return { 
+        menuIndex: state.menuIndex 
+    }
 }
 //action
 const changeMenuIndex = {
@@ -9,9 +11,12 @@ const changeMenuIndex = {
 }
 
 //映射Redux actions到组件的属性
-function mapDispatchToProps(dispatch){
+const mapDispatchToProps = dispatch => {
     return{
-        changeMenuIndex:()=>dispatch(changeMenuIndex)
+        changeMenuIndex : text => {
+            changeMenuIndex.text = text
+            dispatch(changeMenuIndex)
+        }
     }
 }
 export {mapStateToProps, mapDispatchToProps}

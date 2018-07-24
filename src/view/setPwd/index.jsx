@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './setPwd.less';
+import './index.less';
 import { Form, Icon, Input, Button, message } from 'antd';
 const FormItem = Form.Item;
 

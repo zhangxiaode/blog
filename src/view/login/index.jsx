@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './login.less';
+import './index.less';
 import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
 const FormItem = Form.Item;
 
