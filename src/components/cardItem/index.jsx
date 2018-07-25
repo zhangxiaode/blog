@@ -4,12 +4,16 @@ import './index.less';
 
 class CardItem extends Component {
   state = {
-    cardData: this.props.cardData
+    cardData: this.props.cardData,
+    collected: this.props.cardData.collected,
+    like: this.props.cardData.like
   }
-  changeStatus(status) {
-    console.log(status)
-    console.log(this.state.cardData.collected)
-    status = !status
+  changeStatus(status,key) {
+    if(key==='collected'){
+      this.setState({collected:!status})
+    } else if(key==='like'){
+      this.setState({like:!status})
+    }
   }
   render() {
     return (
@@ -35,8 +39,8 @@ class CardItem extends Component {
         <div className="cardBtn">
           <span><Icon type="eye" />浏览{this.state.cardData.eye}次</span>
           <span><Icon type="message" />{this.state.cardData.comments}条评论</span>
-          <span onClick = {() => this.changeStatus(this.state.cardData.collected)}><Icon type={this.state.cardData.collected ? 'star' : 'star-o'} />收藏</span>
-          <span onClick = {() => this.changeStatus(this.state.cardData.like)}><Icon type={this.state.cardData.like ? 'heart' : 'heart-o'} />喜欢</span>
+          <span onClick = {() => this.changeStatus(this.state.collected,'collected')}><Icon type={this.state.collected ? 'star' : 'star-o'} />收藏</span>
+          <span onClick = {() => this.changeStatus(this.state.like,'like')}><Icon type={this.state.like ? 'heart' : 'heart-o'} />喜欢</span>
         </div>
       </div>
     )

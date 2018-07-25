@@ -4,7 +4,6 @@ import App from '../view/app/index.jsx'
 import Login from '../view/login/index.jsx'
 import Register from '../view/register/index.jsx'
 import SetPwd from '../view/setPwd/index.jsx'
-import Layout from '../layout/layout.jsx'
 
 import { Provider, connect } from 'react-redux'
 import { createStore } from 'redux'
@@ -30,10 +29,6 @@ class BrowserRoutes extends Component{
             {
                 path: '/page',
                 component: App
-            },
-            {
-                path: '/layout',
-                component: Layout
             }
         ]
     }
