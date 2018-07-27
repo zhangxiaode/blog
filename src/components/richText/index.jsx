@@ -3,7 +3,7 @@ import {Editor, EditorState, RichUtils, getDefaultKeyBinding, KeyBindingUtil, co
 import Immutable from 'immutable'
 import './index.less';
 const {isCtrlKeyCommand, hasCommandModifier } = KeyBindingUtil;
-// console.log(getDefaultKeyBinding)
+console.log(getDefaultKeyBinding)
 // console.log(require('draft-js'))
 var blockRenderMap = Immutable.Map({
   'header': {
@@ -11,6 +11,9 @@ var blockRenderMap = Immutable.Map({
   },
   'blockquote': {
     element: 'blockquote'
+  },
+  'LINK':{
+    element: 'a'
   }
 })
 blockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap)
@@ -75,7 +78,9 @@ class RichText extends Component {
           'MUTABLE',
           {url: 'https://myanbin.github.io/'}
         )
+        console.log(111,contentStateWithEntity)
         const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+        console.log(222,entityKey)
         // const newEditorState = EditorState.set(this.state.editorState, { currentContent: contentStateWithEntity })
         RichUtils.toggleLink(this.state.editorState, this.state.editorState.getSelection(), entityKey)
         console.log(convertToRaw(this.state.editorState.getCurrentContent()))
@@ -229,6 +234,8 @@ class RichText extends Component {
         return 'header-one'
       case 'blockquote':
         return 'blockquote'
+      case 'LINK':
+        return 'LINK'
       default: return null;
     }
   }
