@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import {Editor, EditorState, RichUtils, getDefaultKeyBinding, KeyBindingUtil} from 'draft-js';
+import {Editor, EditorState, RichUtils, getDefaultKeyBinding, KeyBindingUtil, convertToRaw} from 'draft-js';
 import './index.less';
-const {isCtrlKeyCommand} = KeyBindingUtil;
-console.log(getDefaultKeyBinding)
+const {isCtrlKeyCommand, hasCommandModifier } = KeyBindingUtil;
+console.log(RichUtils)
 class RichText extends Component {
   state = {
     formatBold: false,
@@ -22,7 +22,8 @@ class RichText extends Component {
     editorState: EditorState.createEmpty()
   }
   onChange = editorState => {
-      this.setState({editorState});
+    this.setState({editorState});
+    console.log(convertToRaw(editorState.getCurrentContent()))
   }
   handleKeyCommand = (command) => {
     switch(command){
@@ -32,38 +33,38 @@ class RichText extends Component {
       case "italic": 
         this.setState({formatItalic: !this.state.formatItalic})
         break;
-      case "delete": 
-        this.setState({formatItalic: !this.state.formatItalic})
-        break;
-      case "backspace": 
-        this.setState({formatItalic: !this.state.formatItalic})
+      case "split-block": 
+        this.setState({formatItalic: !this.state.insertUnorderedList})
         break;
       case "code": 
-        this.setState({formatItalic: !this.state.formatItalic})
+        this.setState({formatItalic: !this.state.formatCode})
+        break;
+      case "delete": 
+        this.setState({formatItalic: !this.state.formatHeader})
+        break;
+      case "backspace": 
+        this.setState({formatItalic: !this.state.formatBlockquote})
         break;
       case "secondary-cut": 
-        this.setState({formatItalic: !this.state.formatItalic})
-        break;
-      case "split-block": 
-        this.setState({formatItalic: !this.state.formatItalic})
+        this.setState({formatItalic: !this.state.insertOrderedList})
         break;
       case "transpose-characters": 
-        this.setState({formatItalic: !this.state.formatItalic})
+        this.setState({formatItalic: !this.state.insertLink})
         break;
       case "underline": 
-        this.setState({formatItalic: !this.state.formatItalic})
+        this.setState({formatItalic: !this.state.insertImage})
         break;
       case "backspace-word": 
-        this.setState({formatItalic: !this.state.formatItalic})
+        this.setState({formatItalic: !this.state.insertVideo})
         break;
       case "secondary-paste": 
-        this.setState({formatItalic: !this.state.formatItalic})
+        this.setState({formatItalic: !this.state.insertFormula})
         break;
       case "move-selection-to-start-of-block": 
-        this.setState({formatItalic: !this.state.formatItalic})
+        this.setState({formatItalic: !this.state.insertDivider})
         break;
       case "move-selection-to-end-of-block": 
-        this.setState({formatItalic: !this.state.formatItalic})
+        this.setState({formatItalic: !this.state.formatClear})
         break;
       default:
     }
@@ -79,13 +80,43 @@ class RichText extends Component {
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'BOLD'));
   }
   italicClick = () => {
+    this.setState({formatItalic:!this.state.formatItalic})
     this.onChange(RichUtils.toggleInlineStyle(this.state.editorState, 'ITALIC'));
   }
+  insertLink = () => {
+    this.setState({insertLink:!this.state.insertLink})
+    const contentState = this.state.editorState.getCurrentContent();
+    const contentStateWithEntity = contentState.createEntity(
+      'LINK',
+      'MUTABLE',
+      {url: 'https://myanbin.github.io/'}
+    );
+    const entityKey = contentStateWithEntity.getLastCreatedEntityKey();
+    const newEditorState = EditorState.set(this.state.editorState, { currentContent: contentStateWithEntity });
+    RichUtils.toggleLink(newEditorState, newEditorState.getSelection(), entityKey);
+  }
   myKeyBindingFn = (e)=>{
-    if (e.keyCode === 72 && isCtrlKeyCommand(e)) {
-      console.log(123,"head")
-      return 'bold'; 
-    } 
+    if (e.keyCode === 66 && hasCommandModifier(e)) {
+      return 'bold'; // B 加粗
+    } else if (e.keyCode === 73 && hasCommandModifier(e)) {
+      return 'italic';// I 斜体
+    } else if ((e.keyCode === 77 || e.keyCode === 79) && isCtrlKeyCommand(e)) {
+      return 'split-block'; // M // O 换行
+    } else if (e.keyCode === 74 && hasCommandModifier(e)) {
+      return 'code'; // J
+    } else if (e.keyCode === 68 && isCtrlKeyCommand(e)) {
+      return 'delete'; // D
+    } else if (e.keyCode === 72 && isCtrlKeyCommand(e)) {
+      return 'backspace'; // H
+    } else if (e.keyCode === 75 && isCtrlKeyCommand(e)) {
+      return 'secondary-cut'; // K
+    } else if (e.keyCode === 84 && isCtrlKeyCommand(e)) {
+      return 'transpose-characters'; // T
+    } else if (e.keyCode === 85 && hasCommandModifier(e)) {
+      return 'underline'; // U
+    } else if (e.keyCode === 87 && isCtrlKeyCommand(e)) {
+      return 'backspace-word'; // W
+    }
     return getDefaultKeyBinding(e)
   }
   render() {
@@ -114,7 +145,7 @@ class RichText extends Component {
           <button onClick={this.italicClick} title="无序列表 (Ctrl+Shift+8)">
             <svg className={this.state.insertUnorderedList ? 'is-actived' : ''} fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M9 7c0-.552.456-1 .995-1h8.01c.55 0 .995.444.995 1 0 .552-.456 1-.995 1h-8.01A.995.995 0 0 1 9 7zM6 8a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm0 5a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm3-6c0-.552.456-1 .995-1h8.01c.55 0 .995.444.995 1 0 .552-.456 1-.995 1h-8.01A.995.995 0 0 1 9 12zm0 5c0-.552.456-1 .995-1h8.01c.55 0 .995.444.995 1 0 .552-.456 1-.995 1h-8.01A.995.995 0 0 1 9 17z" fillRule="evenodd"></path></svg>
           </button>
-          <button onClick={this.italicClick} title="插入链接 (Ctrl+K)">
+          <button onClick={this.insertLink} title="插入链接 (Ctrl+K)">
             <svg className={this.state.insertLink ? 'is-actived' : ''} fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M6.77 17.23c-.905-.904-.94-2.333-.08-3.193l3.059-3.06-1.192-1.19-3.059 3.058c-1.489 1.489-1.427 3.954.138 5.519s4.03 1.627 5.519.138l3.059-3.059-1.192-1.192-3.059 3.06c-.86.86-2.289.824-3.193-.08zm3.016-8.673l1.192 1.192 3.059-3.06c.86-.86 2.289-.824 3.193.08.905.905.94 2.334.08 3.194l-3.059 3.06 1.192 1.19 3.059-3.058c1.489-1.489 1.427-3.954-.138-5.519s-4.03-1.627-5.519-.138L9.786 8.557zm-1.023 6.68c.33.33.863.343 1.177.029l5.34-5.34c.314-.314.3-.846-.03-1.176-.33-.33-.862-.344-1.176-.03l-5.34 5.34c-.314.314-.3.846.03 1.177z" fillRule="evenodd"></path></svg>
           </button>
           <button onClick={this.italicClick} title="上传图片">
@@ -136,7 +167,7 @@ class RichText extends Component {
             <svg className={this.state.dots ? 'is-actived' : ''} fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fillRule="evenodd"></path></svg>
           </button>
         </div>
-        <Editor editorState={editorState} handleKeyCommand={this.handleKeyCommand} keyBindingFn={this.myKeyBindingFn} onChange={this.onChange} />
+        <Editor placeholder="请输入正文" editorState={editorState} handleKeyCommand={this.handleKeyCommand} keyBindingFn={this.myKeyBindingFn} onChange={this.onChange} />
       </div>
     )
   }
