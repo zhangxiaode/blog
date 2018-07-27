@@ -1,7 +1,7 @@
 .richText{
     // background:#ccc;
     border:solid 1px #eee;
-    .richBtn{
+    .toolbar{
         border-bottom:solid 1px #eee;
         height:36px;padding:5px 13px;
         button{
@@ -12,6 +12,7 @@
             color:#8590a6;
             &:hover,.is-actived{
                 color:#0084ff;
+                background:#eee;
             }
             &.more{
                 float:right;
@@ -19,6 +20,38 @@
         }
     }
     .DraftEditor-root{
-        padding:20px 10px;
+        padding:20px 10px;font-size:16px;
+        min-height: 300px;
+        .header-one{
+            font-size:20px;
+        }
+        .blockquote{
+            border-left: 3px solid #d3d3d3;
+            margin: 1em 0;padding-left: 1em;
+            color: #646464;
+        }
+        ol{
+            // list-style-type: decimal;
+            list-style-type:none;counter-reset:sectioncounter;
+            margin:1em 0;
+            li{
+                display:flex;
+            }
+            li:before {
+                content:counter(sectioncounter) "、"; 
+                counter-increment:sectioncounter;
+            }
+        }
+        ul{
+            // list-style-type: disc;
+            list-style-type:none;counter-reset:sectioncounter;
+            margin:1em 0;
+            li{
+                display:flex;
+            }
+            li:before {
+                content: "\2022 ";
+            }
+        }
     }
 }
