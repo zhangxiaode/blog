@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {Editor, EditorState, RichUtils, getDefaultKeyBinding, KeyBindingUtil, convertToRaw, DefaultDraftBlockRenderMap} from 'draft-js';
+import {Editor, EditorState, RichUtils, getDefaultKeyBinding, KeyBindingUtil, convertToRaw, DefaultDraftBlockRenderMap, Modifier} from 'draft-js';
 import Immutable from 'immutable'
 import './index.less';
 const {isCtrlKeyCommand, hasCommandModifier } = KeyBindingUtil;
-console.log(getDefaultKeyBinding)
+// console.log(getDefaultKeyBinding)
 // console.log(require('draft-js'))
 var blockRenderMap = Immutable.Map({
   'header': {
@@ -11,13 +11,9 @@ var blockRenderMap = Immutable.Map({
   },
   'blockquote': {
     element: 'blockquote'
-  },
-  'LINK':{
-    element: 'a'
   }
 })
 blockRenderMap = DefaultDraftBlockRenderMap.merge(blockRenderMap)
-// console.log(123,blockRenderMap)
 class RichText extends Component {
   state = {
     formatBold: false,
@@ -72,18 +68,25 @@ class RichText extends Component {
         break;
       case "insertLink": 
         this.setState({insertLink: !this.state.insertLink})
-        const contentState = this.state.editorState.getCurrentContent()
-        const contentStateWithEntity = contentState.createEntity(
-          'LINK',
-          'MUTABLE',
-          {url: 'https://myanbin.github.io/'}
-        )
-        console.log(111,contentStateWithEntity)
-        const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-        console.log(222,entityKey)
+        // const contentState = this.state.editorState.getCurrentContent()
+        // const contentStateWithEntity = contentState.createEntity(
+        //   'LINK',
+        //   'MUTABLE',
+        //   {url: 'http://www.baidu.com'}
+        // )
+        // console.log(111,contentStateWithEntity)
+        // const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+        // const contentStateWithLink = Modifier.applyEntity( contentStateWithEntity, this.state.editorState.getSelection(), entityKey );
+        // console.log(222,contentStateWithLink)
         // const newEditorState = EditorState.set(this.state.editorState, { currentContent: contentStateWithEntity })
-        RichUtils.toggleLink(this.state.editorState, this.state.editorState.getSelection(), entityKey)
-        console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+        // newState = RichUtils.toggleLink(this.state.editorState, this.state.editorState.getSelection(), entityKey)
+        // console.log(333,this.state.editorState.getSelection())
+        // console.log(convertToRaw(contentState))
+
+        // const blockWithLinkAtBeginning = contentState.getBlockForKey('...'); 
+        // const linkKey = blockWithLinkAtBeginning.getEntityAt(0); 
+        // const linkInstance = contentState.getEntity(linkKey); 
+        // const {url} = linkInstance.getData();
         break;
       case "insertFormula": 
         this.setState({insertFormula: !this.state.insertFormula})
@@ -234,8 +237,6 @@ class RichText extends Component {
         return 'header-one'
       case 'blockquote':
         return 'blockquote'
-      case 'LINK':
-        return 'LINK'
       default: return null;
     }
   }
