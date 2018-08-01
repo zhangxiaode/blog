@@ -1,8 +1,19 @@
 import React, { Component } from 'react';
-import {Editor, EditorState, RichUtils, getDefaultKeyBinding, KeyBindingUtil, convertToRaw, DefaultDraftBlockRenderMap, Modifier} from 'draft-js';
+import {Editor, 
+  EditorState, 
+  RichUtils, 
+  getDefaultKeyBinding, 
+  KeyBindingUtil, 
+  // convertToRaw,
+  DefaultDraftBlockRenderMap, 
+  // Modifier
+} from 'draft-js';
 import Immutable from 'immutable'
 import './index.less';
-const {isCtrlKeyCommand, hasCommandModifier } = KeyBindingUtil;
+const {
+  // isCtrlKeyCommand, 
+  hasCommandModifier 
+} = KeyBindingUtil;
 // console.log(getDefaultKeyBinding)
 // console.log(require('draft-js'))
 var blockRenderMap = Immutable.Map({
@@ -33,8 +44,6 @@ class RichText extends Component {
     editorState: EditorState.createEmpty()
   }
   onChange = editorState => {
-    console.log(convertToRaw(this.state.editorState.getCurrentContent()))
-    // console.log(this.refs.myEditor.state)
     this.setState({editorState})
   }
   handleKeyCommand = (command) => {
@@ -70,20 +79,20 @@ class RichText extends Component {
         break;
       case "insertLink": 
         this.setState({insertLink: !this.state.insertLink})
-        const contentState = this.state.editorState.getCurrentContent()
-        const contentStateWithEntity = contentState.createEntity(
-          'LINK',
-          'MUTABLE',
-          {url: 'http://www.baidu.com'}
-        )
+        // const contentState = this.state.editorState.getCurrentContent()
+        // const contentStateWithEntity = contentState.createEntity(
+        //   'LINK',
+        //   'MUTABLE',
+        //   {url: 'http://www.baidu.com'}
+        // )
         // console.log(111,contentStateWithEntity)
-        const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-        const contentStateWithLink = Modifier.applyEntity( contentStateWithEntity, this.state.editorState.getSelection(), entityKey );
-        console.log(222,contentStateWithLink)
+        // const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+        // const contentStateWithLink = Modifier.applyEntity( contentStateWithEntity, this.state.editorState.getSelection(), entityKey );
+        // console.log(222,contentStateWithLink)
         // const newEditorState = EditorState.set(this.state.editorState, { currentContent: contentStateWithEntity })
         // newState = RichUtils.toggleLink(this.state.editorState, this.state.editorState.getSelection(), entityKey)
         // console.log(333,this.state.editorState.getSelection())
-        console.log(convertToRaw(contentState))
+        // console.log(convertToRaw(contentState))
 
         // const blockWithLinkAtBeginning = contentState.getBlockForKey('...'); 
         // const linkKey = blockWithLinkAtBeginning.getEntityAt(0); 
@@ -103,36 +112,6 @@ class RichText extends Component {
         this.setState({formatClear: !this.state.formatClear})
         newState = RichUtils.handleKeyCommand(this.state.editorState, command)
         break;
-      // case "split-block": 
-      //   this.setState({formatItalic: !this.state.insertUnorderedList})
-      //   break;
-      // case "delete": 
-      //   this.setState({formatItalic: !this.state.formatHeader})
-      //   break;
-      // case "backspace": 
-      //   this.setState({formatItalic: !this.state.formatBlockquote})
-      //   break;
-      // case "secondary-cut": 
-      //   this.setState({formatItalic: !this.state.insertOrderedList})
-      //   break;
-      // case "transpose-characters": 
-      //   this.setState({formatItalic: !this.state.insertLink})
-      //   break;
-      // case "underline": 
-      //   this.setState({formatItalic: !this.state.insertImage})
-      //   break;
-      // case "backspace-word": 
-      //   this.setState({formatItalic: !this.state.insertVideo})
-      //   break;
-      // case "secondary-paste": 
-      //   this.setState({formatItalic: !this.state.insertFormula})
-      //   break;
-      // case "move-selection-to-start-of-block": 
-      //   this.setState({formatItalic: !this.state.insertDivider})
-      //   break;
-      // case "move-selection-to-end-of-block": 
-      //   this.setState({formatItalic: !this.state.formatClear})
-      //   break;
       default:
         newState = RichUtils.handleKeyCommand(this.state.editorState, command)
     }
@@ -206,22 +185,6 @@ class RichText extends Component {
       return 'insertDivider'; // ctrl+shift+S 插入分隔线
     } else if (e.ctrlKey && e.keyCode === 220) {
       return 'formatClear'; // ctrl+\ 清除格式
-    }
-    // else if ((e.keyCode === 77 || e.keyCode === 79) && isCtrlKeyCommand(e)) {
-    //   return 'split-block'; // M // O 换行
-    // } else if (e.keyCode === 68 && isCtrlKeyCommand(e)) {
-    //   return 'delete'; // D
-    // } else if (e.keyCode === 72 && isCtrlKeyCommand(e)) {
-    //   return 'backspace'; // H
-    // } else if (e.keyCode === 75 && isCtrlKeyCommand(e)) {
-    //   return 'secondary-cut'; // K
-    // } else if (e.keyCode === 84 && isCtrlKeyCommand(e)) {
-    //   return 'transpose-characters'; // T
-    // } 
-    else if (e.keyCode === 85 && hasCommandModifier(e)) {
-      return 'underline'; // U
-    } else if (e.keyCode === 87 && isCtrlKeyCommand(e)) {
-      return 'backspace-word'; // W
     }
     return getDefaultKeyBinding(e)
   }

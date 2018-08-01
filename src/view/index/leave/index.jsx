@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import './index.less'
-class App extends Component {
+class Leave extends Component {
   render() {
     return (
-      <div className="page">
+      <div className="leave">
         this is leave.
       </div>
     );
   }
 }
 
-export default App;
+export default Leave
