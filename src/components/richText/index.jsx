@@ -33,10 +33,12 @@ class RichText extends Component {
     editorState: EditorState.createEmpty()
   }
   onChange = editorState => {
-    this.setState({editorState});
+    console.log(convertToRaw(this.state.editorState.getCurrentContent()))
+    // console.log(this.refs.myEditor.state)
+    this.setState({editorState})
   }
   handleKeyCommand = (command) => {
-    var newState = RichUtils.handleKeyCommand(this.state.editorState, command)
+    var newState;
     switch(command){
       case "bold": 
         this.setState({formatBold: !this.state.formatBold})
@@ -58,44 +60,48 @@ class RichText extends Component {
         this.setState({formatCode: !this.state.formatCode})
         newState = RichUtils.toggleCode(this.state.editorState)
         break;
-      case "orderedList": 
+      case "orderedList":
         this.setState({orderedList: !this.state.orderedList})
         newState = RichUtils.toggleBlockType(this.state.editorState,'ordered-list-item')
         break;
-      case "unorderedList": 
+      case "unorderedList":
         this.setState({unorderedList: !this.state.unorderedList})
         newState = RichUtils.toggleBlockType(this.state.editorState,'unordered-list-item')
         break;
       case "insertLink": 
         this.setState({insertLink: !this.state.insertLink})
-        // const contentState = this.state.editorState.getCurrentContent()
-        // const contentStateWithEntity = contentState.createEntity(
-        //   'LINK',
-        //   'MUTABLE',
-        //   {url: 'http://www.baidu.com'}
-        // )
+        const contentState = this.state.editorState.getCurrentContent()
+        const contentStateWithEntity = contentState.createEntity(
+          'LINK',
+          'MUTABLE',
+          {url: 'http://www.baidu.com'}
+        )
         // console.log(111,contentStateWithEntity)
-        // const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
-        // const contentStateWithLink = Modifier.applyEntity( contentStateWithEntity, this.state.editorState.getSelection(), entityKey );
-        // console.log(222,contentStateWithLink)
+        const entityKey = contentStateWithEntity.getLastCreatedEntityKey()
+        const contentStateWithLink = Modifier.applyEntity( contentStateWithEntity, this.state.editorState.getSelection(), entityKey );
+        console.log(222,contentStateWithLink)
         // const newEditorState = EditorState.set(this.state.editorState, { currentContent: contentStateWithEntity })
         // newState = RichUtils.toggleLink(this.state.editorState, this.state.editorState.getSelection(), entityKey)
         // console.log(333,this.state.editorState.getSelection())
-        // console.log(convertToRaw(contentState))
+        console.log(convertToRaw(contentState))
 
         // const blockWithLinkAtBeginning = contentState.getBlockForKey('...'); 
         // const linkKey = blockWithLinkAtBeginning.getEntityAt(0); 
         // const linkInstance = contentState.getEntity(linkKey); 
         // const {url} = linkInstance.getData();
+        newState = RichUtils.handleKeyCommand(this.state.editorState, command)
         break;
       case "insertFormula": 
         this.setState({insertFormula: !this.state.insertFormula})
+        newState = RichUtils.handleKeyCommand(this.state.editorState, command)
         break;
       case "insertDivider": 
         this.setState({insertDivider: !this.state.insertDivider})
+        newState = RichUtils.handleKeyCommand(this.state.editorState, command)
         break;
       case "formatClear": 
         this.setState({formatClear: !this.state.formatClear})
+        newState = RichUtils.handleKeyCommand(this.state.editorState, command)
         break;
       // case "split-block": 
       //   this.setState({formatItalic: !this.state.insertUnorderedList})
@@ -128,6 +134,7 @@ class RichText extends Component {
       //   this.setState({formatItalic: !this.state.formatClear})
       //   break;
       default:
+        newState = RichUtils.handleKeyCommand(this.state.editorState, command)
     }
     if (newState) {
       this.onChange(newState)
@@ -136,55 +143,42 @@ class RichText extends Component {
     return 'not-handled'
   }
   boldClick = () => {
-    this.setState({formatBold:!this.state.formatBold})
     this.handleKeyCommand('bold')
   }
   italicClick = () => {
-    this.setState({formatItalic:!this.state.formatItalic})
     this.handleKeyCommand('italic')
   }
   headerClick = () => {
-    this.setState({formatHeader:!this.state.formatHeader})
     this.handleKeyCommand('header')
   }
   blockquoteClick = () => {
-    this.setState({formatBlockquote:!this.state.formatBlockquote})
     this.handleKeyCommand('blockquote')
   }
   codeClick = () => {
-    this.setState({formatCode:!this.state.formatCode})
     this.handleKeyCommand('code')
   }
   orderedClick = () => {
-    this.setState({orderedList:!this.state.orderedList})
     this.handleKeyCommand('orderedList')
   }
   unorderedClick = () => {
-    this.setState({unorderedList:!this.state.unorderedList})
     this.handleKeyCommand('unorderedList')
   }
   insertLink = () => {
-    this.setState({insertLink:!this.state.insertLink})
     this.handleKeyCommand('insertLink')
   }
   insertImage = () => {
-    this.setState({insertImage:!this.state.insertImage})
     this.handleKeyCommand('italic')
   }
   insertVideo = () => {
-    this.setState({insertVideo:!this.state.insertVideo})
     this.handleKeyCommand('italic')
   }
   insertFormula = () => {
-    this.setState({insertFormula:!this.state.insertFormula})
     this.handleKeyCommand('insertFormula')
   }
   insertDivider = () => {
-    this.setState({insertDivider:!this.state.insertDivider})
     this.handleKeyCommand('insertDivider')
   }
   formatClear = () => {
-    this.setState({formatClear:!this.state.formatClear})
     this.handleKeyCommand('formatClear')
   }
   showMore = () => {
@@ -240,6 +234,9 @@ class RichText extends Component {
       default: return null;
     }
   }
+  getFocus = () => {
+    this.refs.myEditor.focus()
+  }
   render() {
     const {editorState} = this.state;
     return (
@@ -288,7 +285,18 @@ class RichText extends Component {
             <svg className={this.state.dots ? 'is-actived' : ''} fill="currentColor" viewBox="0 0 24 24" width="24" height="24"><path d="M5 14a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4zm7 0a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" fillRule="evenodd"></path></svg>
           </button>
         </div>
-        <Editor placeholder="请输入正文" blockRenderMap={blockRenderMap} blockStyleFn={this.myBlockStyleFn} editorState={editorState} handleKeyCommand={this.handleKeyCommand} keyBindingFn={this.myKeyBindingFn} onChange={this.onChange} />
+        <div className="myEditor" onClick={this.getFocus}>
+          <Editor 
+            ref="myEditor"
+            placeholder="请输入正文" 
+            blockRenderMap={blockRenderMap} 
+            blockStyleFn={this.myBlockStyleFn} 
+            editorState={editorState} 
+            handleKeyCommand={this.handleKeyCommand} 
+            keyBindingFn={this.myKeyBindingFn}
+            onChange={this.onChange} 
+          />
+        </div>
       </div>
     )
   }

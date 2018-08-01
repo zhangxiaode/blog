@@ -16,7 +16,7 @@ class Write extends Component {
         <div className="writeBd">
           <div className="writeImg">
             <Dragger>
-                <Icon type="inbox" />
+                <Icon type="camera-o" />
             </Dragger>
           </div>
           <div className="writeTit">
