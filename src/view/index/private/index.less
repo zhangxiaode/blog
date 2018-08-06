@@ -1,0 +1,46 @@
+.private{
+    background:#fff;
+    padding:10px 15px;
+    .privateHd{
+        display:flex;justify-content: space-between;align-items: center;
+        border-bottom:solid 1px #ccc;padding:10px 0;
+    }
+    .privateBd{
+        padding:10px 0;
+    }
+    .privateItem{
+        display:flex;justify-content: space-around;align-items: flex-start;
+        border-bottom:solid 1px #eee;
+        padding:10px 0;
+        .ant-avatar{
+            margin-right:15px;
+        }
+        .privateMsg{
+            flex:1;
+        }
+        .msgName{
+            margin-bottom:10px;
+        }
+        .privateInfo{
+            display:flex;justify-content: space-between;align-items: center;
+            margin-top:15px;
+        }
+        .privateBtn{
+            button{
+                margin:0 10px;
+            }
+        }
+        .returnMsg{
+            height: 0;overflow:hidden;
+            transition: all 0.3s;
+            margin: 10px 0;
+            &.showReturn{
+                height:136px;
+            }
+            .returnBtn{
+                margin-top: 10px;
+                text-align: right;
+            }
+        }
+    }
+}
