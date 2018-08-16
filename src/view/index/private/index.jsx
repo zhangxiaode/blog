@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Avatar, Modal, Input } from 'antd';
+import { Button, Avatar, Modal, Input, Icon } from 'antd';
 import './index.less'
 const { TextArea } = Input;
 class App extends Component {
@@ -31,7 +31,9 @@ class App extends Component {
         privateDate: '6月17日 11:12',
         showReturn: false
       }
-    ]
+    ],
+    friendsList: [],
+    friendInput: ''
   }
   showModal = () => {
     this.setState({
@@ -52,6 +54,27 @@ class App extends Component {
     let msgList = this.state.msgList
     msgList[index].showReturn = !msgList[index].showReturn
     this.setState({ msgList })
+  }
+  onChangeUserName = (e) => {
+    this.setState({ friendInput: e.target.value })
+  }
+  addFriend = () => {
+    let friendsList = this.state.friendsList
+    friendsList.push(this.state.friendInput)
+    this.setState({ 
+      friendsList,
+      friendInput: '' 
+    })
+  }
+  removeFriend = (index) => {
+    let friendsList = this.state.friendsList
+    friendsList.splice(index,1)
+    this.setState({ 
+      friendsList
+    })
+  }
+  getFocus = ()=>{
+    this.refs.friendInput.focus()
   }
   render() {
     return (
@@ -98,10 +121,14 @@ class App extends Component {
             <Button key="send" type="primary" onClick={this.sendMsg}>发送</Button>
           ]}
         >
-          <div className="friends">
-            <div className="friendsList">
-            </div>
-            <Input placeholder="Basic usage" />
+          <div className="friends" onClick={this.getFocus}>
+            {
+              this.state.friendsList.map((item,index) => {
+                return <span key={index}>{item}<Icon className="close" type="close" onClick={() => this.removeFriend(index)}></Icon></span>
+              })
+
+            }
+            <Input placeholder="用户名" ref="friendInput" value={this.state.friendInput} onChange={this.onChangeUserName} onPressEnter = {this.addFriend} />
           </div>
           <TextArea rows={4} />
         </Modal>
