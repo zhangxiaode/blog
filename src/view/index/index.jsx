@@ -1,20 +1,20 @@
-import React, { Component } from 'react';
-import { Link, Route, Redirect, Switch } from 'react-router-dom';
-import { Icon } from 'antd';
+import React, { Component } from 'react'
+import { Link, Route, Redirect, Switch } from 'react-router-dom'
+import { Icon } from 'antd'
 import { connect } from 'react-redux'
 
 import {mapStateToProps, mapDispatchToProps} from '../../store/mapToProps'
-import './index.less';
+import './index.less'
 
-import Homepage from './homepage/index.jsx';
-import Message from './message/index.jsx';
-import Write from './write/index.jsx';
-import Leave from './leave/index.jsx';
-import Private from './private/index.jsx';
-import Artical from './artical/index.jsx';
-import Community from './community/index.jsx';
-import MyFocus from './myFocus/index.jsx';
-import FocusMe from './focusMe/index.jsx';
+import Homepage from './homepage/index.jsx'
+import Message from './message/index.jsx'
+import Write from './write/index.jsx'
+import Leave from './leave/index.jsx'
+import Private from './private/index.jsx'
+import Artical from './artical/index.jsx'
+import Community from './community/index.jsx'
+import MyFocus from './myFocus/index.jsx'
+import FocusMe from './focusMe/index.jsx'
 class Index extends Component {
   state = {
     categoryList: [
@@ -98,7 +98,7 @@ class Index extends Component {
         path: '/page/index/homepage',
         component: Homepage
       }
-    ],
+    ]
   }
   componentDidMount() {
     this.state.routes.forEach((item,index) => {
@@ -148,7 +148,7 @@ class Index extends Component {
           </div>
         </div>
       </div>
-    );
+    )
   }
 }
 Index = connect(mapStateToProps, mapDispatchToProps)(Index)

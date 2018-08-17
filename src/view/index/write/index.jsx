@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Input, Upload, Icon, Button } from 'antd';
+import React, { Component } from 'react'
+import { Input, Upload, Icon, Button } from 'antd'
 
 import RichText from '../../../components/richText'
 import './index.less'
@@ -23,13 +23,12 @@ class Write extends Component {
             <Input placeholder="请输入标题（最多 30 个字）" /> 
           </div>
           <div className="writeCont">
-            {/* <TextArea rows={4} /> */}
             <RichText />
           </div>
           <Button type="primary" className="save">保存</Button>
         </div>
       </div>
-    );
+    )
   }
 }
 

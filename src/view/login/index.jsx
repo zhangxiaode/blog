@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './index.less';
-import { Form, Icon, Input, Button, Checkbox, message } from 'antd';
+import { Form, Icon, Input, Button, Checkbox } from 'antd';
 const FormItem = Form.Item;
 
 class Login extends Component {
@@ -8,7 +8,6 @@ class Login extends Component {
     e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        message.success('success');
         this.props.history.push('/page/index');
       } else {
         return false
