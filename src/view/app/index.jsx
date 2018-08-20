@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { Route, Switch, Redirect } from 'react-router-dom';
+import React, { Component } from 'react'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import { connect } from 'react-redux'
 import {mapStateToProps, mapDispatchToProps} from '../../store/mapToProps'
-import './index.less';
+import './index.less'
 import Header from '../../components/header/index.jsx'
-import Homepage from '../index/index.jsx';
-import Topic from '../topic/index.jsx';
-import TextChat from '../textChat/index.jsx';
-import VideoChat from '../videoChat/index.jsx';
-import Collections from '../collections/index.jsx';
-import Setting from '../setting/index.jsx';
+import Homepage from '../index/index.jsx'
+import Topic from '../topic/index.jsx'
+import TextChat from '../textChat/index.jsx'
+import VideoChat from '../videoChat/index.jsx'
+import Collections from '../collections/index.jsx'
+import Setting from '../setting/index.jsx'
 
 class App extends Component {
   state = {

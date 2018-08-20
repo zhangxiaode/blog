@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import { Link, Route, Redirect, Switch } from 'react-router-dom'
+import { connect } from 'react-redux'
+import {mapStateToProps, mapDispatchToProps} from '../../store/mapToProps'
 import { Icon } from 'antd'
 
 import './index.less'
@@ -12,63 +14,65 @@ import Prefer from './prefer/index.jsx'
 
 class Setting extends Component {
   state = {
-    menuIndex2: -1,
     settingItems: [
       {
-        path:'/page/settings/account',
+        path:'/page/setting/account',
         name: '账户与密码',
         icon: 'bell'
       },
       {
-        path:'/page/settings/msg',
+        path:'/page/setting/msg',
         name: '消息与邮件',
         icon: 'bell'
       },
       {
-        path:'/page/settings/shiled',
+        path:'/page/setting/shiled',
         name: '屏蔽',
         icon: 'bell'
       },
       {
-        path:'/page/settings/private',
+        path:'/page/setting/private',
         name: '隐私',
         icon: 'bell'
       },
       {
-        path:'/page/settings/prefer',
+        path:'/page/setting/prefer',
         name: '偏好设置',
         icon: 'bell'
       }
     ],
     routes: [
       {
-        path: '/page/settings/account',
+        path: '/page/setting/account',
         component: Account
       },
       {
-        path: '/page/settings/msg',
+        path: '/page/setting/msg',
         component: Msg
       },
       {
-        path: '/page/settings/shiled',
+        path: '/page/setting/shiled',
         component: Shiled
       },
       {
-        path: '/page/settings/private',
+        path: '/page/setting/private',
         component: Private
       },
       {
-        path: '/page/settings/prefer',
+        path: '/page/setting/prefer',
         component: Prefer
       }
     ]
   }
   componentDidMount() {
-  }
-  switchPage2(index) {
-    this.setState({
-      menuIndex2: index
+    this.state.routes.forEach((item,index) => {
+      if(item.path === this.props.location.pathname){
+        this.props.changeMenuIndex(index)
+      }
     })
+  }
+  switchPage(index) {
+    this.props.changeMenuIndex(index)
   }
   render() {
     return (
@@ -76,7 +80,7 @@ class Setting extends Component {
         <div className="settingHd">
           {
             this.state.settingItems.map((item,index) => {
-              return <Link key={index} onClick={()=>this.switchPage2(index)} className={this.state.menuIndex2 === index ? 'actived' : ''} to={item.path}>
+              return <Link key={index} onClick={()=>this.switchPage(index)} className={this.props.menuIndex === index ? 'actived' : ''} to={item.path}>
                 <Icon type={item.icon} />
                 <span>{item.name}</span>
               </Link>
@@ -90,11 +94,12 @@ class Setting extends Component {
                 return <Route path={item.path} key={index} component={item.component} />
               })
             }
-            <Redirect from='/page/settings' to='/page/settings/account'/>
+            <Redirect from='/page/setting' to='/page/setting/account'/>
           </Switch>
         </div>
       </div>
-    );
+    )
   }
 }
+Setting = connect(mapStateToProps, mapDispatchToProps)(Setting)
 export default Setting

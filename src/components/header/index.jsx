@@ -44,8 +44,12 @@ class Header extends Component {
   handleSearch() {
 
   }
-  switchPage = () => {
-    this.props.changeMenuIndex(-1)
+  switchPage = (index) => {
+    if(index === 0) {
+      this.props.changeMenuIndex(-1)
+    } else if(index === 5) {
+      this.props.changeMenuIndex(0)
+    }
   }
   render() {
     return (
@@ -63,7 +67,7 @@ class Header extends Component {
         <div className="nav">
           {
             this.state.navList.map((item,index) => {
-              return <NavLink activeClassName="actived" key={index} onClick={this.switchPage} to={item.path}>
+              return <NavLink activeClassName="actived" key={index} onClick={() => this.switchPage(index)} to={item.path}>
                 <Icon type={item.icon} />{item.name}
               </NavLink>
             })
