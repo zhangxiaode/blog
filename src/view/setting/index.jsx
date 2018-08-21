@@ -9,7 +9,7 @@ import './index.less'
 import Account from './account/index.jsx'
 import Msg from './msg/index.jsx'
 import Shiled from './shiled/index.jsx'
-import Private from './private/index.jsx'
+import Conceal from './conceal/index.jsx'
 import Prefer from './prefer/index.jsx'
 
 class Setting extends Component {
@@ -18,27 +18,27 @@ class Setting extends Component {
       {
         path:'/page/setting/account',
         name: '账户与密码',
-        icon: 'bell'
+        icon: 'user'
       },
       {
         path:'/page/setting/msg',
         name: '消息与邮件',
-        icon: 'bell'
+        icon: 'mail'
       },
       {
         path:'/page/setting/shiled',
         name: '屏蔽',
-        icon: 'bell'
+        icon: 'close-circle-o'
       },
       {
-        path:'/page/setting/private',
+        path:'/page/setting/conceal',
         name: '隐私',
-        icon: 'bell'
+        icon: 'lock'
       },
       {
         path:'/page/setting/prefer',
         name: '偏好设置',
-        icon: 'bell'
+        icon: 'heart-o'
       }
     ],
     routes: [
@@ -55,8 +55,8 @@ class Setting extends Component {
         component: Shiled
       },
       {
-        path: '/page/setting/private',
-        component: Private
+        path: '/page/setting/conceal',
+        component: Conceal
       },
       {
         path: '/page/setting/prefer',
@@ -88,14 +88,16 @@ class Setting extends Component {
           }
         </div>
         <div className="settingBd">
-          <Switch>
-            {
-              this.state.routes.map((item,index) => {
-                return <Route path={item.path} key={index} component={item.component} />
-              })
-            }
-            <Redirect from='/page/setting' to='/page/setting/account'/>
-          </Switch>
+          <div className="settingCont">
+            <Switch>
+              {
+                this.state.routes.map((item,index) => {
+                  return <Route path={item.path} key={index} component={item.component} />
+                })
+              }
+              <Redirect from='/page/setting' to='/page/setting/account'/>
+            </Switch>
+          </div>
         </div>
       </div>
     )
