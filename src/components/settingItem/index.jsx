@@ -10,7 +10,7 @@ class SettingItem extends Component {
           <p>{this.props.tips}</p>
         </div>
         <div className="settingBtn">
-          <a href="javascrip:;">编辑</a>
+          <a href="">编辑</a>
         </div>
       </div>
     )

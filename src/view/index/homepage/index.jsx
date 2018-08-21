@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import './index.less'
+
 import CardItem from '../../../components/cardItem/index.jsx'
+
 class Homepage extends Component {
   state = {
     cardData: [
