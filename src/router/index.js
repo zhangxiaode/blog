@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import App from '../view/app/index.jsx'
 import Login from '../view/login/index.jsx'
 import Register from '../view/register/index.jsx'
