@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './index.less'
 
 import CardItem from '../../../components/cardItem/index.jsx'
+import ajax from '../../../utils/ajax'
 
 class Homepage extends Component {
   state = {
@@ -32,6 +33,15 @@ class Homepage extends Component {
       }
     ]
   }
+  componentDidMount() {
+    ajax.post('/?m=api&subm=market&action=orderstatus', {userid:"1"})
+    .then((res) => {
+      console.log(res)
+    })
+    .catch(function (error) {
+      console.log(error)
+    })
+  }
   render() {
     return (
       <div className="homePage">
@@ -41,8 +51,8 @@ class Homepage extends Component {
           })
         }
       </div>
-    );
+    )
   }
 }
 
-export default Homepage;
+export default Homepage

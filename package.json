@@ -102,5 +102,11 @@
   "devDependencies": {
     "less": "^3.0.2",
     "less-loader": "^4.1.0"
-  }
+  },
+  "proxy":{
+    "/pro_personal":{
+       "target":"http://test-html5.8531.cn/",
+       "changeOrigin": true
+     }
+   }
 }
