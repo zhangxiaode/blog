@@ -105,7 +105,7 @@
   },
   "proxy":{
     "/pro_personal":{
-       "target":"http://test-html5.8531.cn/",
+       "target":"http://localhost:8888",
        "changeOrigin": true
      }
    }

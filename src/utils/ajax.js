@@ -25,12 +25,12 @@ instance.interceptors.response.use((response) => {
     return Promise.reject(error)
 });
 function initParams(params){
-    params.token="123";//axios公共参数配置
+    // params.token="123";//axios公共参数配置
     return params
 }
 function getData(url,params,methods){
     //服务器代理选择
-    const baseUrl="/pro_personal";
+    const baseUrl="";
     //发起请求
     const getResult=new Promise((resolve,reject) => {
         if(methods==="get"){

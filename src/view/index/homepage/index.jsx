@@ -34,12 +34,12 @@ class Homepage extends Component {
     ]
   }
   componentDidMount() {
-    ajax.post('/?m=api&subm=market&action=orderstatus', {userid:"1"})
+    ajax.get('/hello', {})
     .then((res) => {
-      console.log(res)
+      console.log(12,res)
     })
     .catch(function (error) {
-      console.log(error)
+      console.log(34,error)
     })
   }
   render() {
