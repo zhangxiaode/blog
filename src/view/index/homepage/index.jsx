@@ -34,11 +34,11 @@ class Homepage extends Component {
     ]
   }
   componentDidMount() {
-    ajax.get('/hello', {})
+    ajax.post('/hello?x=1', {a:1,b:2})
     .then((res) => {
       console.log(12,res)
     })
-    .catch(function (error) {
+    .catch((error) => {
       console.log(34,error)
     })
   }

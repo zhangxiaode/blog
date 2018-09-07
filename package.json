@@ -104,9 +104,9 @@
     "less-loader": "^4.1.0"
   },
   "proxy":{
-    "/pro_personal":{
-       "target":"http://localhost:8888",
-       "changeOrigin": true
-     }
-   }
+    "/apis":{
+      "target":"http://localhost:8888",
+      "changeOrigin": true
+    }
+  }
 }
