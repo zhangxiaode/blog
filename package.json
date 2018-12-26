@@ -104,8 +104,8 @@
     "less-loader": "^4.1.0"
   },
   "proxy":{
-    "/apis":{
-      "target":"http://localhost:8888",
+    "/blog":{
+      "target":"http://10.100.4.64:9090",
       "changeOrigin": true
     }
   }
