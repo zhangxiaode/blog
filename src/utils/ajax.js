@@ -30,7 +30,7 @@ function initParams(params){
 }
 function getData(url,params,methods){
     //服务器代理选择
-    const baseUrl="/blog";
+    const baseUrl="/apis";
     //发起请求
     const getResult=new Promise((resolve,reject) => {
         if(methods==="get"){

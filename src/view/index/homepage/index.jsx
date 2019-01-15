@@ -34,22 +34,22 @@ class Homepage extends Component {
     ]
   }
   componentDidMount() {
-    ajax.get('/user/findUser', {}).then(res => {
+    ajax.get('/findUser', {}).then(res => {
       console.log(res)
     }).catch(err => {
       console.log(err)
     })
-    ajax.get('/user/addUser', {}).then(res => {
+    ajax.get('/addUser', {}).then(res => {
       console.log(res)
     }).catch(err => {
       console.log(err)
     })
-    ajax.get('/user/updateUser', {}).then(res => {
+    ajax.get('/updateUser', {}).then(res => {
       console.log(res)
     }).catch(err => {
       console.log(err)
     })
-    ajax.get('/user/deleteUser', {}).then(res => {
+    ajax.get('/deleteUser', {}).then(res => {
       console.log(res)
     }).catch(err => {
       console.log(err)
